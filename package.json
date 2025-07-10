@@ -1,7 +1,7 @@
 {
-  "name": "rutracker-api-with-proxy",
+  "name": "@ilyamatsuev/rutracker-api-with-proxy",
   "version": "2.0.6",
-  "description": "Provides login and search API for Rutracker.org.",
+  "description": "Provides login and search APIs for Rutracker.org with enhancements related to cookies management and extended search functionality",
   "main": "index.js",
   "scripts": {
     "test": "npm run lint && jest",
@@ -17,11 +17,14 @@
   "contributors": [
     {
       "name": "Kirill Fertikov"
+    },
+    {
+      "name": "Ilya Matsuev"
     }
   ],
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.3.4",
+    "axios": "^1.10.0",
     "cheerio": "^1.0.0-rc.12",
     "windows-1251": "^1.1.0"
   },
@@ -35,13 +38,12 @@
     "prettier": "^2.8.3"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fertkir/rutracker-api.git"
+    "url": "https://github.com/IlyaMatsuev/rutracker-api"
   },
   "bugs": {
-    "url": "https://github.com/fertkir/rutracker-api/issues"
+    "url": "https://github.com/IlyaMatsuev/rutracker-api/issues"
   },
-  "homepage": "https://github.com/fertkir/rutracker-api#readme",
+  "homepage": "https://github.com/IlyaMatsuev/rutracker-api#readme",
   "maintainers": [
     {
       "name": "nikityy",
@@ -50,6 +52,10 @@
     {
       "name": "Kirill Fertikov",
       "email": "kirill.fertikov@gmail.com"
+    },
+    {
+      "name": "Ilya Matsuev",
+      "email": "ilya.matsuev.personal@gmail.com"
     }
   ],
   "jest": {

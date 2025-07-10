@@ -1,16 +1,14 @@
-# rutracker-api-with-proxy
-* [English](https://github-com.translate.goog/fertkir/rutracker-api/blob/master/README.md?_x_tr_sl=ru&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp)
+# @ilyamatsuev/rutracker-api
+* [English](https://github-com.translate.goog/IlyaMatsuev/rutracker-api/blob/master/README.md?_x_tr_sl=ru&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp)
 
 Позволяет искать по раздачам трекера Rutracker.org. Поскольку поиск запрещён для незарегистрированных пользователей, также поддерживаетcя и авторизация.
 
-Данная библиотека - форк [rutracker-api](https://www.npmjs.com/package/rutracker-api), в котором:
-1. Добавлена [поддержка прокси](#proxy) (http, https, socks) - на случай, если rutracker недоступен в вашей локации.
-2. Добавлена поддержка взаимодействия с rutracker'ом по HTTPS.
-3. Добавлена возможность указать зеркало rutracker'а.
-4. Обновлены зависимости до последних версий
+Данная библиотека - форк [rutracker-api-with-proxy](https://github.com/fertkir/rutracker-api-with-proxy), в котором:
+1. Добавлена возможность переиспользования куки после авторизации
+2. Добавлена возможность поиска метадаты торент файла (качество видео, субтитры и т.д.) по айди треда
 
 ## Установка
-Запусти ```npm install rutracker-api-with-proxy``` (предполагается, что Node.js и пакетный менеждер npm у вас уже установлены). Для работы требуется версия Node.js >= 8.
+Запусти ```npm install @ilyamatsuev/rutracker-api``` (предполагается, что Node.js и пакетный менеждер npm у вас уже установлены). Для работы требуется версия Node.js >= 8.
 
 ## API
 
@@ -18,7 +16,7 @@
 Возвращает Promise<>. Promise упадет, если были введены неправильные `username` или `password`.
 
 ```js
-const RutrackerApi = require('rutracker-api-with-proxy');
+const RutrackerApi = require('@ilyamatsuev/rutracker-api');
 const rutracker = new RutrackerApi();
 
 rutracker.login({ username: '', password: '' })
