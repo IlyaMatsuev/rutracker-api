@@ -4,13 +4,27 @@
 Позволяет искать по раздачам трекера Rutracker.org. Поскольку поиск запрещён для незарегистрированных пользователей, также поддерживаетcя и авторизация.
 
 Данная библиотека - форк [rutracker-api-with-proxy](https://github.com/fertkir/rutracker-api-with-proxy), в котором:
-1. Добавлена возможность переиспользования куки после авторизации
-2. Добавлена возможность поиска метадаты торент файла (качество видео, субтитры и т.д.) по айди треда
+1. Добавлена возможность переиспользования куки и автоматической аутентификации
+2. Добавлена возможность поиска метадаты торент файла (качество видео, субтитры и т.д.) по идентификатору треда
 
 ## Установка
 Запусти ```npm install @ilyamatsuev/rutracker-api``` (предполагается, что Node.js и пакетный менеждер npm у вас уже установлены). Для работы требуется версия Node.js >= 8.
 
 ## API
+
+### RutrackerApi#login({ username, password })
+Возвращает Promise<>. Promise упадет, если были введены неправильные `username` или `password`.
+
+```js
+const RutrackerApi = require('@ilyamatsuev/rutracker-api');
+const rutracker = new RutrackerApi();
+
+rutracker.login({ username: '', password: '' })
+  .then(() => {
+    console.log('Authorized');
+  })
+  .catch(err => console.error(err));
+```
 
 ### RutrackerApi#login({ username, password })
 Возвращает Promise<>. Promise упадет, если были введены неправильные `username` или `password`.
@@ -38,6 +52,18 @@ rutracker.login({ username: '', password: '' })
   .then(torrents => console.log(torrents));
 ```
 
+### RutrackerApi#find(torrentId)
+Возвращает Promise<[Torrent (with metadata)](#torrent-with-metadata)>. Параметр `torrentId` содержит строку с идентификатором треда (торрента), который можно получить из метода [`RutrackerApi#search`](#rutrackerapisearch-query-sort-order-).
+
+```js
+const RutrackerApi = require('rutracker-api-with-proxy');
+const rutracker = new RutrackerApi();
+
+rutracker.login({ username: '', password: '' })
+  .then(() => rutracker.find("torrent-id"))
+  .then(torrent => console.log(torrent));
+```
+
 ### RutrackerApi#download(torrentId)
 Возвращает Promise<[fs.ReadableStream](https://nodejs.org/api/stream.html#stream_readable_streams)>.
 
@@ -63,7 +89,20 @@ rutracker.login({ username: '', password: '' })
   .then(uri => console.log(uri));
 ```
 
-<a name="proxy"/>
+### Работа с переиспользованием куки
+
+```js
+const RutrackerApi = require('rutracker-api-with-proxy');
+const rutracker = new RutrackerApi("https://rutracker.org", {}, {
+    // Path to a json file which will store the cookie under the {"rutracker"} key
+    cookiesFilePath: 'path/to/cookies.json',
+    // Credentials are needed to automatically log-in if the cookie is missing or expired
+    credentials: {
+        username: '',
+        password: ''
+    }
+});
+```
 
 ### Работа через HTTP(S)-proxy
 
@@ -144,6 +183,15 @@ const approvedTorrents = torrents.filter(torrent => torrent.state === Torrent.AP
 
 ##### registered
 Тип: `Date`. Дата, когда торрент был зарегистрирован.
+
+
+### Torrent (with metadata)
+
+#### Свойства
+
+##### metadata
+Тип: `Array<{ key: string, value: string }>`. Список пунктов о торренте на странице треда (например: `Год выпуска: 2017`). Это свойство возвращается как часть торрента в методе [`RutrackerApi#find`](#rutrackerapifindtorrentid).
+
 
 #### Статические свойства
 
