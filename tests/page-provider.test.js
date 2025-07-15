@@ -1,6 +1,11 @@
 const PageProvider = require("../lib/page-provider");
 const { NotAuthorizedError, ValidationError } = require("../lib/errors");
 
+jest.mock("../lib/utils", () => ({
+  validateUnauthorized: jest.fn((rawHtml) => rawHtml),
+  decodeWindows1251: jest.fn((response) => response?.data),
+}));
+
 describe("#login", () => {
   test("making correct request", () => {
     expect.assertions(2);
@@ -95,7 +100,7 @@ describe("#login", () => {
 });
 
 describe("#search", () => {
-  test("making correct request", () => {
+  test("making correct request", async () => {
     expect.assertions(4);
 
     const pageProvider = new PageProvider();
@@ -107,7 +112,7 @@ describe("#search", () => {
     pageProvider.cookie = cookie;
     pageProvider.request = request;
 
-    pageProvider.search({ query });
+    await pageProvider.search({ query });
 
     expect(request).toHaveBeenCalledTimes(1);
     expect(request).toHaveBeenCalledWith({
@@ -118,10 +123,10 @@ describe("#search", () => {
       url: `https://rutracker.org/forum/tracker.php?nm=${query}`,
     });
 
-    pageProvider.search({ query, sort: "size" });
+    await pageProvider.search({ query, sort: "size" });
     expect(request.mock.calls[1][0].data).toEqual("o=7");
 
-    pageProvider.search({ query, sort: "size", order: "asc" });
+    await pageProvider.search({ query, sort: "size", order: "asc" });
     expect(request.mock.calls[2][0].data).toEqual("o=7&s=1");
   });
 
@@ -177,7 +182,7 @@ describe("#search", () => {
 });
 
 describe("#thread", () => {
-  test("making correct request", () => {
+  test("making correct request", async () => {
     expect.assertions(2);
 
     const pageProvider = new PageProvider();
@@ -190,7 +195,7 @@ describe("#thread", () => {
     pageProvider.cookie = cookie;
     pageProvider.request = request;
 
-    pageProvider.thread(id);
+    await pageProvider.thread(id);
 
     expect(request).toHaveBeenCalledTimes(1);
     expect(request).toHaveBeenCalledWith({
@@ -211,7 +216,7 @@ describe("#thread", () => {
 });
 
 describe("#torrentFile", () => {
-  test("making correct request", () => {
+  test("making correct request", async () => {
     expect.assertions(2);
 
     const pageProvider = new PageProvider();
@@ -224,7 +229,7 @@ describe("#torrentFile", () => {
     pageProvider.cookie = cookie;
     pageProvider.request = request;
 
-    pageProvider.torrentFile(id);
+    await pageProvider.torrentFile(id);
 
     expect(request).toHaveBeenCalledTimes(1);
     expect(request).toHaveBeenCalledWith({
