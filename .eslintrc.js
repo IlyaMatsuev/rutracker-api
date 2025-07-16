@@ -10,6 +10,7 @@ module.exports = {
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
   },
+  ignorePatterns: ["**/*.d.ts"],
   env: {
     node: true,
   },

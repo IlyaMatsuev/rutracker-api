@@ -1,8 +1,9 @@
 {
   "name": "@ilyamatsuev/rutracker-api-with-proxy",
-  "version": "2.1.2",
+  "version": "2.1.5",
   "description": "Provides login and search APIs for Rutracker.org with enhancements related to cookies management and extended search functionality",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "npm run lint && jest",
     "lint": "./node_modules/.bin/eslint ."
