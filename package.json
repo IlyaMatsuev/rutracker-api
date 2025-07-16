@@ -1,6 +1,6 @@
 {
   "name": "@ilyamatsuev/rutracker-api-with-proxy",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "description": "Provides login and search APIs for Rutracker.org with enhancements related to cookies management and extended search functionality",
   "main": "index.js",
   "scripts": {
