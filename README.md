@@ -1,4 +1,4 @@
-# @ilyamatsuev/rutracker-api
+# npm i @ilyamatsuev/rutracker-api-with-proxy
 * [English](https://github-com.translate.goog/IlyaMatsuev/rutracker-api/blob/master/README.md?_x_tr_sl=ru&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp)
 
 Позволяет искать по раздачам трекера Rutracker.org. Поскольку поиск запрещён для незарегистрированных пользователей, также поддерживаетcя и авторизация.
